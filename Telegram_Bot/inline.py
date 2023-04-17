@@ -2,7 +2,7 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
 KarateKido = InlineKeyboardMarkup(row_width=2)
-PiM = InlineKeyboardMarkup(row_width=1)
+PiM = InlineKeyboardMarkup(row_width=2)
 CQ = InlineKeyboardMarkup(row_width=2)
 F1 = InlineKeyboardMarkup(row_width=2)
 Neon = InlineKeyboardMarkup(row_width=2)

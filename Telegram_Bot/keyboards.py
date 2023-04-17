@@ -3,7 +3,7 @@ from aiogram.types import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButt
 kb = ReplyKeyboardMarkup(resize_keyboard=True,
                          one_time_keyboard=True)
 
-b1 = KeyboardButton("MinecraftQuz")
+b1 = KeyboardButton("MinecraftQuiz")
 b2 = KeyboardButton("Karate Kido 2")
 b3 = KeyboardButton("Color Quest")
 b4 = KeyboardButton("F1 Racer")
