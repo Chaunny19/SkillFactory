@@ -2,14 +2,12 @@ from aiogram import Bot, Dispatcher, executor, types
 from config import API_TOKEN
 from keyboards import kb
 from inline import PiM, KarateKido, CQ, F1, Neon, Ski, KiU, SO, Nex, Qube, TubeR
-from aiogram.utils.exceptions import BadRequest
 
 
 bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
-
-@dp.message_handler(commands = ['start'])
+@dp.message_handler(commands = ['start']) # Start Button
 async def send_welcome(message: types.Message):
         await bot.send_message(message.from_user.id, "Добро пожаловать на игровой канал \nЯ твой бот дофамин и готов помочь тебе поиграть в различные игры \n Выбери любую игру:",
                         reply_markup=kb,
@@ -60,22 +58,9 @@ async def send_game(message: types.Message):
 async def send_game(message: types.Message):
         await bot.send_game(message.from_user.id, game_short_name='Neon_Blaster_2', reply_markup=Neon)
 
-
 # обработчик callback-запросов для игр
 @dp.callback_query_handler(lambda v: v.game_short_name == 'KarateKido')
 async def process_callback_game(callback_query: types.CallbackQuery):
-    # Получение идентификатора игры и счета
-    player = callback_query.from_user
-    callback_query.game_short_name
-    # Установка счета в игре для пользователя
-    await bot.set_game_score(user_id=player.id, 
-                             score=
-                             chat_id=callback_query.message.chat.id, 
-                             message_id=callback_query.message.message_id, 
-                             inline_message_id=callback_query.inline_message_id,
-                             force=True
-                             )
-    # Отправка сообщения об успешном обновлении счета игрока
     await bot.answer_callback_query(callback_query.id, url='https://prizes.gamee.com/game-bot/karatekid2-654b0e63ab7c67165b3e96521453f685ec08966c#tgShareScoreUrl=tg%3A%2F%2Fshare_game_score%3Fhash%3DiJVDbJaHHw2qH9q3U29_4gKPXIjssA0V4OZ1johPe-xEyLaNrf7pZiJXqZcYFPK0')
     
 
@@ -98,6 +83,9 @@ async def process_callback_game_3(callback_query: types.CallbackQuery):
 # обработчик callback-запросов для игр
 @dp.callback_query_handler(lambda h: h.game_short_name == 'Neon_Blaster_2')
 async def process_callback_game_4(callback_query: types.CallbackQuery):
+        # Установка счета в игре для пользователя
+
+    # Отправка сообщения об успешном обновлении счета игрока
     await bot.answer_callback_query(callback_query.id, url='https://prizes.gamee.com/game-bot/neonblast2-c95df69fb728210cc23bea297498022678ef32de#tgShareScoreUrl=tg%3A%2F%2Fshare_game_score%3Fhash%3DY-Py5Vf_egD58KmTEX8FZmNWH4T4j5iSn1bfed8orlOtwTvCqVnwA7r_08cuQKL7')
 
 # обработчик callback-запросов для игр
@@ -109,11 +97,19 @@ async def process_callback_game_5(callback_query: types.CallbackQuery):
 @dp.callback_query_handler(lambda h: h.game_short_name == 'Keep_it_Up')
 async def process_callback_game_5(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id, url='https://prizes.gamee.com/game-bot/a3pyHGoadz-a973298ac96ea5009a9cc87e5ec87965b9dbdd1a#tgShareScoreUrl=tg%3A%2F%2Fshare_game_score%3Fhash%3DaBx3xzxuTdDbmD6MkdnuGs1dnL8P3ihRQnFDPDa9fA4gAoTj7XTAPuhNgbYmhXpB')
-
+    
 # обработчик callback-запросов для игр
-@dp.callback_query_handler(lambda h: h.game_short_name == 'Space_Orbit')
+@dp.callback_query_handler()
 async def process_callback_game_5(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id, url='https://prizes.gamee.com/game-bot/R4k6GrC-b502c0eb81aa0621e616d4bee62b663378e5b008#tgShareScoreUrl=tg%3A%2F%2Fshare_game_score%3Fhash%3DxBgO03eVe8esbbs5mMlS3A9IdnW3yufyjqyesyivgyszyoe--3p1qFZgMVZcSE9p')
+    game_url = types.CallbackQuery(
+         game_short_name = 'Space_Orbit',
+    )
+    await bot.set_game_score(user_id=callback_query.from_user.id,
+                                 score=1,
+                                 chat_id=callback_query.message.chat.id,
+                                 message_id=callback_query.message.message_id,
+                                 force=True)
+    await bot.answer_callback_query(callback_query.id, game_url, url='https://prizes.gamee.com/game-bot/R4k6GrC-b502c0eb81aa0621e616d4bee62b663378e5b008#tgShareScoreUrl=tg%3A%2F%2Fshare_game_score%3Fhash%3DxBgO03eVe8esbbs5mMlS3A9IdnW3yufyjqyesyivgyszyoe--3p1qFZgMVZcSE9p')
 
 # обработчик callback-запросов для игр
 @dp.callback_query_handler(lambda h: h.game_short_name == 'Hexonix')
@@ -189,9 +185,9 @@ async def handle_inline_query(inline_query: types.InlineQuery):
          reply_markup=Neon
     )
 
-    
     # Отправка ответа на inline-запрос
     await bot.answer_inline_query(inline_query.id, results=[game_1, game_2, game_3, game_4, game_5, game_6, game_7, game_8, game_9, game_10, game_11], cache_time=1)
+
 
 @dp.message_handler()
 async def error(message: types.Message):
