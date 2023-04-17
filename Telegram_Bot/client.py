@@ -14,7 +14,7 @@ async def send_welcome(message: types.Message):
                         )
 
 
-@dp.message_handler(lambda message: 'Karate Kido 2' in message.text)
+@dp.message_handler(lambda message: 'Karate Kido' in message.text)
 async def send_game(message: types.Message):
         await bot.send_game(message.from_user.id, game_short_name='KarateKido', reply_markup=KarateKido)
 
